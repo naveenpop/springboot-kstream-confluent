@@ -1,0 +1,11 @@
+{
+ "namespace": "com.example.avro",
+ "type": "record",
+ "name": "Organization",
+ "fields": [
+     {"name": "orgId", "type": "string", "default": "null"},
+	 {"name": "orgName", "type": "string", "default": "null"},
+	 {"name": "orgType", "type": "string", "default": "null"},
+	 {"name": "parentOrgId", "type": "string", "default": "null"}
+ ]
+}
