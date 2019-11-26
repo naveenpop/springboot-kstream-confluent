@@ -1,5 +1,5 @@
 {
- "namespace": "com.example.avro",
+ "namespace": "com.test.demo.avro",
  "type": "record",
  "name": "Organization",
  "fields": [

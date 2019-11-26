@@ -12,38 +12,19 @@ spring:
           group: demokstream.org
           consumer:
             header-mode: raw
-        pcin:
-          consumer:
-            header-mode: raw
-            user-native-encoding: true
-          content-type: application/json
-          destination: pcs
-          group: pcs
-        pcout:
-          destination: pcs
-          producer:
-            user-native-encoding: true
-        pvin:
-          consumer:
-            header-mode: raw
-          destination: pvs
-        pvout:
-          destination: pvs
-          producer:
-            header-mode: raw
       kafka:
         streams:
           binder:
             brokers: localhost
             configuration:
+              schema.registry.url: http://localhost:8081
               commit:
                 interval:
                   mms: 1000
               default:
                 key:
-                  serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+                  serde: io.confluent.kafka.streams.serdes.avro.SpecificAvroSerde
                 value:
-                  #serde: org.apache.kafka.common.serialization.Serdes$StringSerde
                   serde: io.confluent.kafka.streams.serdes.avro.SpecificAvroSerde
         bindings:
           organization:
