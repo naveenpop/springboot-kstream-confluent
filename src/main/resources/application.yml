@@ -6,12 +6,15 @@ spring:
       schemaRegistryClient:
         endpoint: http://localhost:8081
       bindings:
-        organization:
+        organizationInput:
           contentType: application/*+avro
           destination: organization-updates
           group: demokstream.org
           consumer:
             header-mode: raw
+        organizationOutput:
+          contentType: application/*+avro
+          destination: organization-updates
       kafka:
         streams:
           binder:
@@ -20,17 +23,23 @@ spring:
               schema.registry.url: http://localhost:8081
               commit:
                 interval:
-                  mms: 1000
+                  ms: 1000
               default:
                 key:
-                  serde: io.confluent.kafka.streams.serdes.avro.SpecificAvroSerde
+                  serde: org.apache.kafka.common.serialization.Serdes$StringSerde
                 value:
                   serde: io.confluent.kafka.streams.serdes.avro.SpecificAvroSerde
         bindings:
-          organization:
+          organizationInput:
             consumer:
               configuration:
                 schema.registry.url: http://localhost:8081
                 specific.avro.reader: true
                 key.deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
                 value.deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+          organizationOutput:
+            producer:
+              configuration:
+                schema.registry.url: http://localhost:8081
+                key.serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+                value.serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
