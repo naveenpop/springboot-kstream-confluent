@@ -11,13 +11,13 @@ import org.springframework.cloud.stream.annotation.StreamListener;
 @EnableBinding(KstreamBinding.class)
 public class KafkaConsumer {
 
-    /*@StreamListener(KstreamBinding.ORGANIZATION)
+    /*@StreamListener(KstreamBinding.ORGANIZATION_INPUT)
     public void processOrganization(Organization organization) {
         log.info("Organization Received:" + organization);
     }*/
 
-    @StreamListener
-    public void processOrganization(@Input(KstreamBinding.ORGANIZATION) KStream<String, Organization> organization) {
-        log.info("Organization Received:" + organization);
+   @StreamListener
+    public void processOrganization(@Input(KstreamBinding.ORGANIZATION_INPUT) KStream<String, Organization> organization) {
+        organization.foreach((s, organization1) -> log.info("KStream Organization Received:" + organization1));
     }
 }

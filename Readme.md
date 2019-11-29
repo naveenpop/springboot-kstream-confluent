@@ -73,3 +73,58 @@ Logs:
     2019-11-26 13:20:10.104  INFO 4394 --- [-StreamThread-1] org.apache.kafka.streams.KafkaStreams    : stream-client [demokstream.org-8cb8b2e3-0e61-4e0e-8ab7-22ce8c7d33b9]State transition from REBALANCING to RUNNING
 
 
+**3.0.0.RELEASE Upgrade**
+
+While trying to upgrade spring cloud stream to `3.0.0.RELEASE` getting below exception.
+
+
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-stream-binder-kafka-streams</artifactId>
+			<version>3.0.0.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-stream-binder-kafka</artifactId>
+			<version>3.0.0.RELEASE</version>
+		</dependency>
+		
+Exception:
+
+    java.lang.IllegalStateException: Failed to introspect Class [org.springframework.cloud.stream.binder.kafka.config.ExtendedBindingHandlerMappingsProviderConfiguration] from ClassLoader [sun.misc.Launcher$AppClassLoader@18b4aac2]
+        at org.springframework.util.ReflectionUtils.getDeclaredMethods(ReflectionUtils.java:659) ~[spring-core-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+        at org.springframework.util.ReflectionUtils.doWithMethods(ReflectionUtils.java:556) ~[spring-core-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+        at org.springframework.util.ReflectionUtils.doWithMethods(ReflectionUtils.java:541) ~[spring-core-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+        at org.springframework.util.ReflectionUtils.getUniqueDeclaredMethods(ReflectionUtils.java:599) ~[spring-core-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+        at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.getTypeForFactoryMethod(AbstractAutowireCapableBeanFactory.java:728) ~[spring-beans-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+        at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.determineTargetType(AbstractAutowireCapableBeanFactory.java:669) ~[spring-beans-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+        at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.predictBeanType(AbstractAutowireCapableBeanFactory.java:637) ~[spring-beans-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+        at org.springframework.beans.factory.support.AbstractBeanFactory.isFactoryBean(AbstractBeanFactory.java:1489) ~[spring-beans-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+        at org.springframework.beans.factory.support.DefaultListableBeanFactory.doGetBeanNamesForType(DefaultListableBeanFactory.java:420) ~[spring-beans-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+        at org.springframework.beans.factory.support.DefaultListableBeanFactory.getBeanNamesForType(DefaultListableBeanFactory.java:390) ~[spring-beans-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+        at org.springframework.beans.factory.support.DefaultListableBeanFactory.getBeansOfType(DefaultListableBeanFactory.java:511) ~[spring-beans-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+        at org.springframework.beans.factory.support.DefaultListableBeanFactory.getBeansOfType(DefaultListableBeanFactory.java:503) ~[spring-beans-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+        at org.springframework.context.support.AbstractApplicationContext.getBeansOfType(AbstractApplicationContext.java:1194) ~[spring-context-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+        at org.springframework.boot.SpringApplication.getExitCodeFromMappedException(SpringApplication.java:880) [spring-boot-2.0.0.RELEASE.jar:2.0.0.RELEASE]
+        at org.springframework.boot.SpringApplication.getExitCodeFromException(SpringApplication.java:866) [spring-boot-2.0.0.RELEASE.jar:2.0.0.RELEASE]
+        at org.springframework.boot.SpringApplication.handleExitCode(SpringApplication.java:852) [spring-boot-2.0.0.RELEASE.jar:2.0.0.RELEASE]
+        at org.springframework.boot.SpringApplication.handleRunFailure(SpringApplication.java:803) [spring-boot-2.0.0.RELEASE.jar:2.0.0.RELEASE]
+        at org.springframework.boot.SpringApplication.run(SpringApplication.java:338) [spring-boot-2.0.0.RELEASE.jar:2.0.0.RELEASE]
+        at org.springframework.boot.SpringApplication.run(SpringApplication.java:1246) [spring-boot-2.0.0.RELEASE.jar:2.0.0.RELEASE]
+        at org.springframework.boot.SpringApplication.run(SpringApplication.java:1234) [spring-boot-2.0.0.RELEASE.jar:2.0.0.RELEASE]
+        at com.example.demokstream.DemokstreamApplication.main(DemokstreamApplication.java:14) [classes/:na]
+    Caused by: java.lang.NoClassDefFoundError: org/springframework/cloud/stream/config/BindingHandlerAdvise$MappingsProvider
+        at java.lang.Class.getDeclaredMethods0(Native Method) ~[na:1.8.0_201]
+        at java.lang.Class.privateGetDeclaredMethods(Class.java:2701) ~[na:1.8.0_201]
+        at java.lang.Class.getDeclaredMethods(Class.java:1975) ~[na:1.8.0_201]
+        at org.springframework.util.ReflectionUtils.getDeclaredMethods(ReflectionUtils.java:641) ~[spring-core-5.0.4.RELEASE.jar:5.0.4.RELEASE]
+        ... 20 common frames omitted
+    Caused by: java.lang.ClassNotFoundException: org.springframework.cloud.stream.config.BindingHandlerAdvise$MappingsProvider
+        at java.net.URLClassLoader.findClass(URLClassLoader.java:382) ~[na:1.8.0_201]
+        at java.lang.ClassLoader.loadClass(ClassLoader.java:424) ~[na:1.8.0_201]
+        at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:349) ~[na:1.8.0_201]
+        at java.lang.ClassLoader.loadClass(ClassLoader.java:357) ~[na:1.8.0_201]
+        ... 24 common frames omitted
+    
+    
+    Process finished with exit code 1
